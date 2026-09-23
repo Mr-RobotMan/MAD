@@ -12,9 +12,14 @@ type apiHandler struct{ service *Service }
 func NewHTTPHandler(service *Service) http.Handler {
 	h := &apiHandler{service: service}
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /health", h.health)
 	mux.HandleFunc("GET /api/v1/alerts", h.alerts)
 	mux.HandleFunc("GET /api/v1/escalations", h.escalations)
 	return mux
+}
+
+func (h *apiHandler) health(w http.ResponseWriter, _ *http.Request) {
+	writeJSON(w, http.StatusOK, Envelope{Success: true, Data: map[string]string{"status": "ok"}, Error: nil})
 }
 
 func (h *apiHandler) alerts(w http.ResponseWriter, r *http.Request) {

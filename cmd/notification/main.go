@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/mad/operator-assistant/services/notification"
 	"github.com/nats-io/nats.go"
+	"mad/services/notification"
 )
 
 func main() {
