@@ -1,0 +1,14 @@
+FROM golang:1.23-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY pkg ./pkg
+COPY services/notification ./services/notification
+COPY cmd/notification ./cmd/notification
+RUN CGO_ENABLED=0 GOOS=linux go build -o /out/notification ./cmd/notification
+
+FROM gcr.io/distroless/static-debian12:nonroot
+WORKDIR /
+COPY --from=builder /out/notification /notification
+EXPOSE 8080
+ENTRYPOINT ["/notification"]
