@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS operator_training;
+DROP TABLE IF EXISTS training_modules;
+DROP TABLE IF EXISTS anomalies;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS machines;
+DROP TABLE IF EXISTS users;
