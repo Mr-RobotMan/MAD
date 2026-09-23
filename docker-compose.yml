@@ -1,4 +1,21 @@
 services:
+  training-hub:
+    build:
+      context: .
+      dockerfile: services/training-hub/Dockerfile.multistage
+    container_name: mad-training-hub
+    ports:
+      - "${TRAINING_HUB_PORT:-8082}:${TRAINING_HUB_PORT:-8082}"
+    environment:
+      PORT: "${TRAINING_HUB_PORT:-8082}"
+      DATABASE_URL: "${DATABASE_URL}"
+      NATS_URL: "${NATS_URL}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
   task-engine:
     build:
       context: .
