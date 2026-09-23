@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS escalations;
+DROP TABLE IF EXISTS alerts;
